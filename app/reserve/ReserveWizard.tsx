@@ -139,13 +139,9 @@ export default function ReserveWizard({ schools }: { schools: PublicSchool[] }) 
   }
 
   return (
-    <div className="mx-auto flex max-w-lg flex-col gap-4 px-4 py-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-lg font-bold">自習室の予約</h1>
-        <Link href="/" className="text-sm text-blue-600 hover:underline">
-          トップに戻る
-        </Link>
-      </div>
+   <div className="flex items-center justify-between">
+  <h1 className="text-lg font-bold">アイリス講義室予約フォーム</h1>
+</div>
 
       {loadError && (
         <p className="rounded bg-red-50 px-3 py-2 text-sm text-red-600">{loadError}</p>
