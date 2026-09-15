@@ -140,7 +140,7 @@ export default function ReserveWizard({ schools }: { schools: PublicSchool[] }) 
 
   return (
    <div className="flex items-center justify-between">
-  <h1 className="text-lg font-bold">アイリス講義室予約フォーム</h1>
+  <h1 className="text-lg font-bold">テスト12345</h1>
 </div>
 
       {loadError && (
