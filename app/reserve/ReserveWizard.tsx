@@ -142,7 +142,7 @@ return (
   <div className="mx-auto flex max-w-lg flex-col gap-4 px-4 py-8">
     <div className="flex items-center justify-between">
 <h1 className="text-lg font-bold">
-  アイリス講義室予約フォーム
+  アイリス講義室自習可能日
 </h1>
     </div>
 
