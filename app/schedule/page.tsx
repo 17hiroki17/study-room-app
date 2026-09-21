@@ -74,9 +74,9 @@ export default async function SchedulePage({
 
       <div className="mb-6">
         <h2 className="font-semibold">利用時間</h2>
-        <p>
-          {startTime} ～ {endTime}
-        </p>
+       <p>
+  {startTime?.slice(0, 5)} ～ {endTime?.slice(0, 5)}
+</p>
       </div>
 
       <div>
