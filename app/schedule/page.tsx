@@ -33,15 +33,25 @@ export default async function SchedulePage({
         </h1>
 
         <div className="flex flex-col gap-3">
-          {dates.map((d) => (
-            <a
-              key={d}
-              href={`/schedule?date=${d}`}
-              className="rounded border p-4 hover:bg-slate-50"
-            >
-              {d}
-            </a>
-          ))}
+          {dates.map((d) => {
+            const displayDate = new Date(d);
+
+            const formattedDate = displayDate.toLocaleDateString("ja-JP", {
+              month: "numeric",
+              day: "numeric",
+              weekday: "short",
+            });
+
+            return (
+              <a
+                key={d}
+                href={`/schedule?date=${d}`}
+                className="rounded border p-4 hover:bg-slate-50"
+              >
+                {formattedDate}
+              </a>
+            );
+          })}
         </div>
       </div>
     );
@@ -59,6 +69,14 @@ export default async function SchedulePage({
     )
     .filter(Boolean);
 
+  const displayDate = new Date(date);
+
+  const formattedDate = displayDate.toLocaleDateString("ja-JP", {
+    month: "numeric",
+    day: "numeric",
+    weekday: "short",
+  });
+
   return (
     <div className="mx-auto max-w-xl p-8">
       <a
@@ -69,14 +87,14 @@ export default async function SchedulePage({
       </a>
 
       <h1 className="mb-6 text-2xl font-bold">
-        {date}
+        {formattedDate}
       </h1>
 
       <div className="mb-6">
         <h2 className="font-semibold">利用時間</h2>
-       <p>
-  {startTime?.slice(0, 5)} ～ {endTime?.slice(0, 5)}
-</p>
+        <p>
+          {startTime?.slice(0, 5)} ～ {endTime?.slice(0, 5)}
+        </p>
       </div>
 
       <div>
