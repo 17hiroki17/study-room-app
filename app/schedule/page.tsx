@@ -105,25 +105,28 @@ export default async function SchedulePage({
           <li>印刷を行う場合は、2号館のパソコンをご利用ください。</li>
           <li>施設利用の都合上、閉校時間は21:30です。</li>
           <li>東進衛星予備校 刈谷駅南口校に在籍している生徒のみ利用可能です。</li>
+          <li>利用可能な教室は日によって異なります。必ず開放教室をご確認のうえ、ご利用ください。</li>
           <li>
             他の利用者の迷惑となる行為やマナー違反があった場合は、今後の利用をお断りする場合があります。
-          </li>
-           <li>
-            利用可能な部屋は日によって異なります。ご利用前に必ず部屋番号をご確認ください。
           </li>
         </ul>
       </div>
 
       <div>
-        <h2 className="mb-2 font-semibold">開放教室</h2>
+        <h2 className="mb-4 text-2xl font-bold text-blue-700">
+          開放教室
+        </h2>
 
-        <ul className="list-disc pl-6">
+        <div className="flex flex-col gap-4">
           {openSchools.map((school) => (
-            <li key={school!.id}>
+            <div
+              key={school!.id}
+              className="rounded-xl border-2 border-blue-500 bg-blue-50 p-6 text-center text-4xl font-extrabold text-red-600 shadow"
+            >
               {school!.name}
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
