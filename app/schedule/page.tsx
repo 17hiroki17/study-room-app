@@ -1,3 +1,4 @@
+
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 export const dynamic = "force-dynamic";
@@ -25,11 +26,13 @@ export default async function SchedulePage({
 
   const today = `${yearPart}-${monthPart}-${dayPart}`;
 
+  // 校舎情報を取得
   const { data: schools } = await supabase
     .from("schools")
     .select("id, name")
     .order("name");
 
+  // 今日以降の利用予定だけを取得
   const { data: slots } = await supabase
     .from("time_slots")
     .select("school_id, usage_date, start_time, end_time")
@@ -56,12 +59,12 @@ export default async function SchedulePage({
     return (
       <div className="mx-auto max-w-xl p-5 sm:p-8">
         <h1 className="mb-6 text-2xl font-bold">
-          アイリス講義室 開放日一覧
+          アイリス講義室 利用日一覧
         </h1>
 
         {dates.length === 0 ? (
           <p className="rounded-xl border bg-slate-50 p-5 text-slate-600">
-            現在、開放予定日はありません。
+            現在、利用予定日はありません。
           </p>
         ) : (
           <div className="flex flex-col gap-3">
@@ -97,7 +100,7 @@ export default async function SchedulePage({
                         {formattedDate}
                       </div>
                       <div className="mt-1 text-sm text-slate-500">
-                        開放教室を確認する
+                        利用可能な部屋を確認する
                       </div>
                     </div>
                   </div>
@@ -131,9 +134,9 @@ export default async function SchedulePage({
       <div className="mx-auto max-w-xl p-5 sm:p-8">
         <a
           href="/schedule"
-          className="mb-4 inline-block rounded-lg px-3 py-2 text-blue-600 transition-colors active:bg-blue-100 hover:underline"
+          className="mb-4 inline-block rounded-lg px-3 py-2 text-blue-600 transition-colors hover:underline active:bg-blue-100"
         >
-          ← 一覧へ戻る
+          ← 利用日一覧へ戻る
         </a>
 
         <p className="rounded-xl border bg-slate-50 p-5 text-slate-600">
@@ -143,7 +146,7 @@ export default async function SchedulePage({
     );
   }
 
-  // 選択した日の開放教室を取得
+  // 選択した日の利用可能な部屋を取得
   const selectedSlots = (slots ?? []).filter(
     (slot) => slot.usage_date === date
   );
@@ -151,7 +154,7 @@ export default async function SchedulePage({
   const startTime = selectedSlots[0]?.start_time;
   const endTime = selectedSlots[0]?.end_time;
 
-  const openSchools = selectedSlots
+  const availableRooms = selectedSlots
     .map((slot) =>
       schools?.find((school) => school.id === slot.school_id)
     )
@@ -164,9 +167,9 @@ export default async function SchedulePage({
     <div className="mx-auto max-w-xl p-5 sm:p-8">
       <a
         href="/schedule"
-        className="mb-4 inline-block rounded-lg px-3 py-2 text-blue-600 transition-colors active:bg-blue-100 hover:underline"
+        className="mb-4 inline-block rounded-lg px-3 py-2 text-blue-600 transition-colors hover:underline active:bg-blue-100"
       >
-        ← 一覧へ戻る
+        ← 利用日一覧へ戻る
       </a>
 
       <h1 className="mb-6 text-2xl font-bold">
@@ -191,7 +194,7 @@ export default async function SchedulePage({
             東進衛星予備校 刈谷駅南口校に在籍している生徒のみ利用可能です。
           </li>
           <li>
-            利用可能な教室は日によって異なります。必ず開放教室をご確認のうえ、ご利用ください。
+            利用可能な部屋は日によって異なります。必ず利用可能な部屋をご確認のうえ、ご利用ください。
           </li>
           <li>
             他の利用者の迷惑となる行為やマナー違反があった場合は、今後の利用をお断りする場合があります。
@@ -201,21 +204,21 @@ export default async function SchedulePage({
 
       <div>
         <h2 className="mb-4 text-2xl font-bold text-blue-700">
-          開放教室
+          利用可能な部屋
         </h2>
 
         <div className="flex flex-col gap-4">
-          {openSchools.length === 0 ? (
+          {availableRooms.length === 0 ? (
             <p className="rounded-xl border bg-slate-50 p-4 text-slate-600">
-              この日の開放教室は登録されていません。
+              この日の利用可能な部屋は登録されていません。
             </p>
           ) : (
-            openSchools.map((school) => (
+            availableRooms.map((room) => (
               <div
-                key={school!.id}
+                key={room!.id}
                 className="rounded-xl border-2 border-blue-500 bg-blue-50 p-5 text-center text-3xl font-extrabold text-red-600 shadow sm:p-6 sm:text-4xl"
               >
-                {school!.name}
+                {room!.name}
               </div>
             ))
           )}
